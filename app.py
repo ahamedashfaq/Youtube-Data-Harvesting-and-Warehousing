@@ -10,32 +10,45 @@ tab1, tab2, tab3 = st.tabs(["Data Harvesting / Warehousing", "Channel Info", "Pr
 with tab1:
     st.header("Data Harvesting / Warehousing")
     channelid = st.text_input("Input Channel ID and Press Submit", "")
-    
+    #st.write(checktable())
 
     if st.button("Submit"):
+        #st.write(checktable())
         st.info('Please wait until data is stored', icon="ℹ️")
 
-        with st.status("Extracting data and storing in SQL...", expanded=True) as status:
-            st.write("Extracting Channel Data...")
+        with st.status("Extracting data and storing in SQL....", expanded=True) as status:
+            st.write("Extracting Channel Data....")
             extract_channelData(channelid)
-            st.write("Extracting Video Data...")
+            st.write("Extracting Video Data....")
             extract_videocommentData(channelid)
-            st.write("Extracting Playlist Data...")
+            st.write("Extracting Playlist Data....")
             extract_playlistData(channelid)
             status.update(label="Download complete!", state="complete", expanded=False)
 
-        st.success('Data has beensuccessfully stored to SQL', icon="✅")
+        st.success('Data has been successfully stored to SQL', icon="✅")
 
 
     
 with tab2:
     st.header("Channel Info")
+    
+    option = ''
     option = st.selectbox('Select Channel Name..',(getChannelname()),index=None,placeholder="Select Channel Name...")
 
 
     if st.button('Submit '): 
-        st.write((channelname(option)))
-
+        #st.write((channelname(option)))
+        channeldata = channelname(option)
+        st.markdown('<h5><span style="color: green">Channel Name:</span></h5>', unsafe_allow_html=True)
+        st.write(channeldata.at[0,'channel_name'])
+        st.markdown('<h5><span style="color: green">Channel Desciprtion:</span></h5>', unsafe_allow_html=True)
+        st.write(channeldata.at[0,'channel_des'])
+        st.markdown('<h5><span style="color: green">Channel Subscriber Count:</span></h5>', unsafe_allow_html=True)
+        st.write(channeldata.at[0,'channel_sub'])
+        st.markdown('<h5><span style="color: green">Channel Video Count:</span></h5>', unsafe_allow_html=True)
+        st.write(channeldata.at[0,'channel_videoCount'])
+        st.markdown('<h5><span style="color: green">Channel View Count:</span></h5>', unsafe_allow_html=True)
+        st.write(channeldata.at[0,'channel_viewCount'])
 
 
 with tab3:
@@ -86,9 +99,4 @@ with tab3:
         st.write(Query10())
 
 
-
-
-
-
-
-#streamlit run c:/Users/ashfaq.ahamed/Documents/projects1/testing/app.py
+#END
