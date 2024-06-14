@@ -4,7 +4,7 @@ import sqlalchemy
 from sqlalchemy import create_engine, text
 
 
-engine = sqlalchemy.create_engine('mysql://root:root@localhost:3306/mydb10jun24_2', pool_pre_ping=True,pool_size=20, max_overflow=0)
+engine = sqlalchemy.create_engine('mysql://root:root@localhost:3306/myYouTubeData') #, pool_pre_ping=True,pool_size=20, max_overflow=0
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -13,8 +13,7 @@ mydb = mysql.connector.connect(
 )
 
 mycursor = mydb.cursor()
-
-mycursor.execute( """USE mydb10jun24_2""")
+mycursor.execute( """USE myYouTubeData""")
 
 
 
@@ -25,10 +24,9 @@ def getChannelname():
 
 def channelname(channel_name):
     query = "select * from channel where channel_name = '{}'".format(channel_name)
-    #data = pd.read_sql(query, engine)
-    #query = "select * from channel"
     cdata = pd.read_sql(query, engine)
-    return cdata.T
+    #return cdata.T
+    return cdata
 
 def Query1():
     query = """select channel.channel_name AS CHANNEL_NAME,  video.video_name AS VIDEO_NAME
@@ -108,7 +106,7 @@ def Query8():
 
 def Query9():
     query = """
-                SELECT channel.channel_name, ANY_VALUE(video.video_name), AVG(TIME_TO_SEC(video.duration))
+                SELECT channel.channel_name as CHANNEL_NAME, ANY_VALUE(video.video_name) AS VIDEO_NAME, AVG(TIME_TO_SEC(video.duration)) AS AVG_DURATION_SECONDS
                 FROM video
                 LEFT JOIN channel
                 ON channel.channel_id = video.channel_id
