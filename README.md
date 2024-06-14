@@ -7,7 +7,7 @@ This projects uses Google API client to extract data from YouTube and stores in 
 ![image](https://github.com/ahamedashfaq/Youtube-Data-Harvesting-and-Warehousing/assets/98206120/84811b7d-49e1-492f-8cf8-7326aa962938)
 
 
-Installtions:
+Installations:
 
 1. pip install google-api-python-client
 2. pip install mysql-connector-python
