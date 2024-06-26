@@ -14,7 +14,7 @@ mydb = mysql.connector.connect(
 
 mycursor = mydb.cursor()
 
-mycursor.execute( """USE mydb10jun24_2""")
+mycursor.execute( """USE myYouTubeData""")
 
 
 
